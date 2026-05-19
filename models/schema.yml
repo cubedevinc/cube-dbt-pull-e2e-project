@@ -1,0 +1,16 @@
+version: 2
+
+# Cube's dbt-to-cube converter reads `columns:` from each model node to
+# generate cube dimensions. Without this file, the generated cube has zero
+# dimensions — the `count` measure still works, but inspecting the cube in
+# the IDE is much less informative.
+models:
+  - name: users
+    description: 'Users from the ecom demo database (Cube Cloud E2E fixture).'
+    columns:
+      - name: id
+        description: 'User identifier (primary key in demo-db.public.users).'
+        data_type: integer
+      - name: created_at
+        description: 'Account creation timestamp.'
+        data_type: timestamp

@@ -1,0 +1,27 @@
+name: 'cube_dbt_e2e'
+version: '1.0.0'
+config-version: 2
+
+# The Cube Cloud workflow extracts this profile name from dbt_project.yml and
+# auto-generates the matching profiles.yml inside the E2B sandbox. Whatever
+# value lives here is what the generated profile will be keyed by — keep it
+# stable.
+profile: 'cube_dbt_e2e'
+
+model-paths: ['models']
+seed-paths: ['seeds']
+test-paths: ['tests']
+analysis-paths: ['analyses']
+macro-paths: ['macros']
+snapshot-paths: ['snapshots']
+
+clean-targets:
+  - 'target'
+  - 'dbt_packages'
+
+# Materialization is irrelevant in practice — the Cube Cloud workflow runs
+# `dbt compile` only, never `dbt run`. We declare `view` for parity with how
+# real dbt projects look.
+models:
+  cube_dbt_e2e:
+    +materialized: view
